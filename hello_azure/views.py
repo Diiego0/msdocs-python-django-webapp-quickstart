@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+from .models import Calificacion
+from .serializers import CalificacionSerializer
 
 def index(request):
     print('Request for index page received')
-    return render(request, 'hello_azure/index.html')
+    return render(request, 'stats/index.html')
 
-@csrf_exempt
-def hello(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        
-        if name is None or name == '':
-            print("Request for hello page received with no name or blank name -- redirecting")
-            return redirect('index')
-        else:
-            print("Request for hello page received with name=%s" % name)
-            context = {'name': name }
-            return render(request, 'hello_azure/hello.html', context)
-    else:
-        return redirect('index')
+def mostrar_calificaciones(request):
+    # Obtener todas las calificaciones
+    calificaciones = Calificacion.objects.all()
+
+    # Pasar las valoraciones a la plantilla
+    return render(request, 'stats/calificaciones.html', {'calificaciones': calificaciones})
+
+class CalificacionViewSet(viewsets.ModelViewSet):
+    queryset = Calificacion.objects.all()
+    serializer_class = CalificacionSerializer
+

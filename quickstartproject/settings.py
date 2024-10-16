@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',  # Django REST Framework
     'hello_azure',
+    'corsheaders',  # Añadir a las apps instaladas
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Añadir a los middlewares
     'django.middleware.security.SecurityMiddleware',
     # Add whitenoise middleware after the security middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -53,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'quickstartproject.urls'
 
@@ -130,3 +135,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+LOGIN_REDIRECT_URL = '/'  # Redirigir al usuario al home después de iniciar sesión
+LOGOUT_REDIRECT_URL = '/usuarios/login/'  # Redirigir al usuario a la página de login después de cerrar sesión
+
+LOGIN_URL = '/usuarios/login/'  # Si el usuario no está autenticado y visita una página protegida, será redirigido aquí.

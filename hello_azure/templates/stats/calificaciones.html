@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calificaciones</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto mt-10">
+        <h1 class="text-3xl font-bold text-center mb-10">calificaciones de Usuarios</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            {% if calificaciones %}
+                <table class="min-w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Usuario</th>
+                            <th class="py-3 px-6 text-left">Puntuación</th>
+                            <th class="py-3 px-6 text-left">Comentario</th>
+                            <th class="py-3 px-6 text-left">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                        {% for calificacion in calificaciones %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6">{{ calificacion.usuario }}</td>
+                            <td class="py-3 px-6">{{ calificacion.puntuacion }}</td>
+                            <td class="py-3 px-6">{{ calificacion.comentario }}</td>
+                            <td class="py-3 px-6">{{ calificacion.fecha }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-center text-gray-500">No hay calificaciones aún.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
